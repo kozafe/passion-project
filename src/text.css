@@ -1,0 +1,69 @@
+.font6 {
+  font-size: 6px;
+  line-height: 10px;
+}
+
+.font8 {
+  font-size: 8px;
+  line-height: 14px;
+}
+
+.font10 {
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.font12 {
+  font-size: 12px;
+  line-height: 16px;
+}
+.font14 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.font16 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.font20 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.font24 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.font28 {
+  font-size: 28px;
+  line-height: 42px;
+}
+.font32 {
+  font-size: 32px;
+  line-height: 46px;
+}
+
+.wo-underline {
+}
+.wo-underline:hover {
+  text-decoration: none;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-greyBB {
+  color: #bbbbc0;
+}
+
+.text-black34 {
+  color: #343434;
+}
+
+.text-grey6c {
+  color: #6c6c71;
+}
