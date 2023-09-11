@@ -197,7 +197,7 @@ export const BalloonContainer = ({ children }) => {
       <div
         style={{
           width: "70vw",
-          paddingTop: isTabOrPhone ? "10vh" : "20vh",
+          paddingTop: 300,
           paddingBottom: 32,
         }}
       >
