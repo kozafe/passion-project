@@ -195,7 +195,12 @@ export const BalloonContainer = ({ children }) => {
       }}
     >
       <div style={{ width: "70vw" }}>
-        <div style={{ height: isTabOrPhone ? 64 : "20vh" }} />
+        <div
+          style={{
+            height: isTabOrPhone ? 64 : "20vh",
+            width: 1,
+          }}
+        />
         {children}
         <div style={{ height: 32 }} />
       </div>

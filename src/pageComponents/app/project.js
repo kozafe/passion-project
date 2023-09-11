@@ -145,7 +145,7 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
               key={mainIndex}
             >
               <h1 className="font20" style={{ color: colors.black }}>
-                <i>{title}</i>
+                <b>{title}</b>
               </h1>
               {array.map(({ title, msg, imgs = [] }, index) => (
                 <div
