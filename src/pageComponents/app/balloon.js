@@ -83,15 +83,21 @@ export const Balloon = ({
 
   const { isTabOrPhone } = useDimensions();
 
+  const isPhoneAndSquared = isTabOrPhone && isSquare;
+
+  const balloonHeight = isFullScreen
+    ? "100vh"
+    : isInflated && isPhoneAndSquared
+    ? 124
+    : isPhoneAndSquared
+    ? 50
+    : balloonWidth;
+
   return (
     <div
       style={{
         width: isFullScreen ? "100vw" : balloonWidth,
-        height: isFullScreen
-          ? "100vh"
-          : isTabOrPhone && isSquare
-          ? 50
-          : balloonWidth,
+        height: balloonHeight,
         backgroundColor: color,
         position: "fixed",
         opacity: hide ? 0 : 1,
@@ -130,20 +136,22 @@ export const Balloon = ({
           }}
         />
       )}
-      <div
-        style={{
-          opacity: balloonState ? 0 : 1,
-          // width: balloonState ? 0 : "auto",
-          marginBottom: -8,
-          ...(balloonState ? { width: 0 } : {}),
-          transition: "opacity .4s linear",
-        }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        <h1 className="font16" style={{ color: colors.black }}>
-          {textTitle}
-        </h1>
-      </div>
+      {!isInflated && (
+        <div
+          style={{
+            opacity: balloonState ? 0 : 1,
+            // width: balloonState ? 0 : "auto",
+            marginBottom: -8,
+            ...(balloonState ? { width: 0 } : {}),
+            transition: "opacity .4s linear",
+          }}
+          className="d-flex justify-content-center align-items-center"
+        >
+          <h1 className="font16" style={{ color: colors.black }}>
+            {textTitle}
+          </h1>
+        </div>
+      )}
       <h1
         style={{
           color: isInflated ? inflatedColor : "transparent",

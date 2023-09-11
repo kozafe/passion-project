@@ -99,7 +99,17 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
       hide={hide}
       isOpen={isOpen}
       toggle={toggle}
-      inflatedTitle="My Projects"
+      inflatedTitle={
+        isTabOrPhone ? (
+          <>
+            My
+            <br />
+            Projects
+          </>
+        ) : (
+          "My Projects"
+        )
+      }
       inflatedColor={colors.black}
     >
       <BalloonContainer>

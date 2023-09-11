@@ -53,7 +53,17 @@ export const ExperienceBalloon = ({ hide, isOpen, toggle }) => {
       hide={hide}
       isOpen={isOpen}
       toggle={toggle}
-      inflatedTitle="My Experience"
+      inflatedTitle={
+        isTabOrPhone ? (
+          <>
+            My
+            <br />
+            Experience
+          </>
+        ) : (
+          "My Experience"
+        )
+      }
       inflatedColor={colors.black}
     >
       {isTabOrPhone ? <BalloonContainer>{child}</BalloonContainer> : child}
