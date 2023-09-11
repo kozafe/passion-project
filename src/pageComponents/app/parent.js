@@ -69,7 +69,7 @@ export const MainApp = () => {
               <Hyperlink href="https://www.linkedin.com/in/koza-brajamagenta-16a012128/">
                 <AiFillLinkedin /> LinkedIn
               </Hyperlink>
-              <Hyperlink marginLeft={24} href="https://wa.me/+628128848703">
+              <Hyperlink marginLeft={24} href="https://wa.me/+6281288487038">
                 <BsWhatsapp /> WhatsApp
               </Hyperlink>
               <Hyperlink marginLeft={24} href="mailto:k.brajamagenta@gmail.com">

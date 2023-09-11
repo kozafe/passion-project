@@ -68,13 +68,12 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
               <BlueSpan>
                 sadly I can't show you the whole app that i built
               </BlueSpan>
-              . Since its unfair if I take credits from someone else. But, if
-              you use my app{" "}
+              . Since its unfair if I take credits from someone else. <br />
+              <br />
+              But, if you use my app (Transfez){" "}
               <BlueSpan>
-                {" "}
-                between 2020-2021 since I'm the single app developer. So all the
-                Front End stuff is coded by me
-              </BlueSpan>{" "}
+                between 2020-2021 all the Front End stuff is coded by me
+              </BlueSpan>
             </>
           ),
           imgs: [
@@ -144,8 +143,8 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
               style={{ flexDirection: "column", marginTop: 32 }}
               key={mainIndex}
             >
-              <h1 className="font20" style={{ color: colors.black }}>
-                <b>{title}</b>
+              <h1 className="font24" style={{ color: colors.black }}>
+                {title}
               </h1>
               {array.map(({ title, msg, imgs = [] }, index) => (
                 <div
