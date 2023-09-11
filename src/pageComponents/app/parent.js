@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useModalHook } from "../../tools";
+import { useDimensions, useModalHook } from "../../tools";
 import { colors } from "../../colors";
 import { Balloon } from "./balloon";
 import { ProjectBalloon } from "./project";
@@ -20,6 +20,8 @@ export const MainApp = () => {
 
   const { isOpen: isOpenProjects, toggle: toggleProjects } = useModalHook();
   const { isOpen: isOpenExperience, toggle: toggleExperience } = useModalHook();
+
+  const { isTabOrPhone } = useDimensions();
 
   const Hyperlink = ({ children, href, marginLeft = 0 }) => (
     <a
@@ -43,7 +45,20 @@ export const MainApp = () => {
         width: "100vw",
       }}
     >
-      <Balloon isOpen={isOpen} inflatedTitle="Welcome to my portfolio">
+      <Balloon
+        isOpen={isOpen}
+        inflatedTitle={
+          isTabOrPhone ? (
+            <>
+              Welcome to
+              <br />
+              my portfolio
+            </>
+          ) : (
+            "Welcome to my portfolio"
+          )
+        }
+      >
         <TitleMessage
           title="Hello!"
           msg={

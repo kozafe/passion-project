@@ -11,7 +11,6 @@ export const Balloon = ({
   isSquare,
   color = colors.black,
   textTitle,
-  isTop,
   leftPosition,
   isBouncy,
   toggle,
@@ -41,6 +40,7 @@ export const Balloon = ({
       setBalloonState(2);
     }, 3200);
   };
+
   const closes = () => {
     setTimeout(() => {
       setBalloonState(1);
@@ -71,8 +71,6 @@ export const Balloon = ({
     ? `calc(50vh - ${balloonWidth} / 2)`
     : 12;
 
-  const bottomOrTop = isTop ? { top: position } : { bottom: position };
-
   const defaultLeft = `calc(50vw - ${balloonWidth} / 2)`;
 
   const leftPositionFixed = isInflated
@@ -88,10 +86,16 @@ export const Balloon = ({
   const balloonHeight = isFullScreen
     ? "100vh"
     : isInflated && isPhoneAndSquared
-    ? 124
+    ? balloonWidth
     : isPhoneAndSquared
     ? 50
     : balloonWidth;
+
+  const transitionTimingDecider = () => {
+    if (!isOpen) return "1s";
+    if (isFullScreen) return ".4s";
+    return "2s";
+  };
 
   return (
     <div
@@ -101,15 +105,11 @@ export const Balloon = ({
         backgroundColor: color,
         position: "fixed",
         opacity: hide ? 0 : 1,
-        ...bottomOrTop,
+        bottom: position,
         padding: isSquare ? 24 : 0,
         left: isFullScreen ? 0 : bounce ? 0 : leftPositionFixed,
         borderRadius: isFullScreen ? 0 : isSquare && !isInflated ? 12 : 140,
-        transition: !isOpen
-          ? "all ease 1s"
-          : isFullScreen
-          ? "all ease .4s"
-          : "all ease 2s",
+        transition: `all ease ${transitionTimingDecider()}`,
         cursor: balloonState ? "" : "pointer",
         boxShadow: `0px 8px 40px rgba(0,0,0,.3)`,
       }}
@@ -195,7 +195,7 @@ export const BalloonContainer = ({ children }) => {
       }}
     >
       <div style={{ width: "70vw" }}>
-        <div style={{ height: isTabOrPhone ? "10vh" : "20vh" }} />
+        <div style={{ height: isTabOrPhone ? 64 : "20vh" }} />
         {children}
         <div style={{ height: 32 }} />
       </div>
