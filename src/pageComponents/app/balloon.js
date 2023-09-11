@@ -194,18 +194,14 @@ export const BalloonContainer = ({ children }) => {
         overflow: "auto",
       }}
     >
-      <div style={{ width: "70vw" }}>
-        <div
-          style={{
-            height: isTabOrPhone ? 64 : "20vh",
-            width: 1,
-            // color: "transparent",
-          }}
-        >
-          njkva
-        </div>
+      <div
+        style={{
+          width: "70vw",
+          paddingTop: isTabOrPhone ? "10vh" : "20vh",
+          paddingBottom: 32,
+        }}
+      >
         {children}
-        <div style={{ height: 32 }} />
       </div>
     </div>
   );
