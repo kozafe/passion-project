@@ -199,8 +199,11 @@ export const BalloonContainer = ({ children }) => {
           style={{
             height: isTabOrPhone ? 64 : "20vh",
             width: 1,
+            // color: "transparent",
           }}
-        />
+        >
+          njkva
+        </div>
         {children}
         <div style={{ height: 32 }} />
       </div>
