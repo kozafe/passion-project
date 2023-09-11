@@ -1,8 +1,9 @@
 import { Row } from "react-bootstrap";
 import { colors } from "../../colors";
-import { Balloon } from "./balloon";
+import { Balloon, BalloonContainer } from "./balloon";
 import { TitleMessage } from "./template";
 import { useState } from "react";
+import { useDimensions } from "../../tools";
 
 const BlueSpan = ({ children }) => (
   <span style={{ color: colors.orange, backgroundColor: colors.black }}>
@@ -11,9 +12,10 @@ const BlueSpan = ({ children }) => (
 );
 
 export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
+  const { isTabOrPhone } = useDimensions();
   const imgs = [
     {
-      title: "Nextjs",
+      title: "Nextjs / ReactJS",
       array: [
         {
           title: "Transactions page",
@@ -26,7 +28,8 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
               That{" "}
               <BlueSpan>
                 <i>completely reusable</i>
-              </BlueSpan>
+              </BlueSpan>{" "}
+              <span className="font10">(click image to enlarge)</span>
             </>
           ),
           imgs: [
@@ -40,7 +43,8 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
           msg: (
             <>
               I also handled <BlueSpan> all the KYB process</BlueSpan> on this
-              website (FE)
+              website (FE){" "}
+              <span className="font10">(click image to enlarge)</span>
             </>
           ),
           imgs: [
@@ -53,6 +57,34 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
         { title: "etc" },
       ],
     },
+    {
+      title: "React Native",
+      array: [
+        {
+          title: "Cards pages",
+          msg: (
+            <>
+              My main app already revamped so{" "}
+              <BlueSpan>
+                sadly I can't show you the whole app that i built
+              </BlueSpan>
+              . Since its unfair if I take credits from someone else. But, if
+              you use my app{" "}
+              <BlueSpan>
+                {" "}
+                between 2020-2021 since I'm the single app developer. So all the
+                Front End stuff is coded by me
+              </BlueSpan>{" "}
+            </>
+          ),
+          imgs: [
+            "/images/mobile1.png",
+            "/images/mobile2.png",
+            "/images/mobile3.png",
+          ],
+        },
+      ],
+    },
   ];
 
   const [selectedImg, setSelectedImg] = useState({});
@@ -62,7 +94,7 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
       color={colors.orange}
       isSquare
       textTitle="Projects"
-      leftPosition={"calc(50vw - 124px)"}
+      leftPosition={"calc(50vw - 112px)"}
       isBouncy
       hide={hide}
       isOpen={isOpen}
@@ -70,42 +102,33 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
       inflatedTitle="My Projects"
       inflatedColor={colors.black}
     >
-      <div
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: "15vw",
-          width: "85vw",
-          height: "100vh",
-          overflow: "auto",
-        }}
-      >
-        <div style={{ width: "70vw" }}>
-          <div style={{ height: "20vh" }} />
-          <TitleMessage
-            title={"My Completed Projects"}
-            titleColor={colors.black}
-            msgColor={colors.black}
-            msg={
-              <>
-                <br />
-                To be completely honest, i have{" "}
-                <BlueSpan>never done freelancing</BlueSpan> before. <br />
-                <br />
-                So, here's some{" "}
-                <BlueSpan>features that I've done on my main job</BlueSpan>
-              </>
-            }
-          />
-          <div
-            style={{
-              height: 1,
-              width: "100%",
-              backgroundColor: colors.black,
-              marginTop: 32,
-            }}
-          />
-          {imgs.map(({ title, array }, mainIndex) => (
+      <BalloonContainer>
+        <TitleMessage
+          title={"My Completed Projects"}
+          titleColor={colors.black}
+          msgColor={colors.black}
+          msg={
+            <>
+              <br />
+              To be completely honest, i have{" "}
+              <BlueSpan>never done freelancing</BlueSpan> before. <br />
+              <br />
+              So, here's some{" "}
+              <BlueSpan>features that I've done on my main job</BlueSpan>
+            </>
+          }
+        />
+        <div
+          style={{
+            height: 1,
+            width: "100%",
+            backgroundColor: colors.black,
+            marginTop: 32,
+          }}
+        />
+        {imgs.map(({ title, array }, mainIndex) => {
+          const isMobile = mainIndex == 1;
+          return (
             <div
               className="d-flex justify-content-center align-items-center"
               style={{ flexDirection: "column", marginTop: 32 }}
@@ -132,7 +155,7 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
                   >
                     {msg}
                   </h1>
-                  <Row className="mt-2">
+                  <Row className="mt-3 mb-2">
                     {imgs.map((src, idx) => {
                       const isActiveRow =
                         mainIndex == selectedImg.mainIndex &&
@@ -143,18 +166,22 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
                         <img
                           src={src}
                           style={{
-                            width: isActive
-                              ? "100%"
-                              : isActiveRow
-                              ? "0%"
-                              : `${100 / imgs.length}%`,
+                            width:
+                              isTabOrPhone || isActive
+                                ? "100%"
+                                : isActiveRow
+                                ? "0%"
+                                : `${100 / imgs.length}%`,
                             cursor: "pointer",
                             transition: "all linear .4s",
                             opacity: hide ? 0 : 1,
+                            marginBottom: isTabOrPhone ? 12 : 0,
                           }}
                           key={idx}
-                          onClick={() =>
+                          onClick={() => {
+                            if (isTabOrPhone) return window.open(src);
                             setSelectedImg((prev) => {
+                              if (isMobile) return {};
                               const isThesame =
                                 mainIndex == selectedImg.mainIndex &&
                                 prev.idx == idx &&
@@ -162,8 +189,8 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
 
                               if (isThesame) return {};
                               return { idx, index, mainIndex };
-                            })
-                          }
+                            });
+                          }}
                         />
                       );
                     })}
@@ -171,55 +198,9 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
                 </div>
               ))}
             </div>
-          ))}
-          {/* {imgs.map(({ msg, title, imgs }, index) => (
-            <div
-              key={index}
-              className="d-flex justify-content-center align-items-center"
-              style={{ flexDirection: "column", marginTop: 32 }}
-            >
-              <h1 className="font20" style={{ color: colors.black }}>
-                {title}
-              </h1>
-              <h1 className="font16" style={{ color: colors.black }}>
-                {msg}
-              </h1>
-              <Row className="mt-2">
-                {imgs.map((src, idx) => {
-                  const isActiveRow = index == selectedImg.index;
-                  const isActive = isActiveRow && idx == selectedImg.idx;
-                  const hide = !isActive && isActiveRow;
-                  return (
-                    <img
-                      src={src}
-                      style={{
-                        width: isActive
-                          ? "100%"
-                          : isActiveRow
-                          ? "0%"
-                          : `${100 / imgs.length}%`,
-                        cursor: "pointer",
-                        transition: "all linear .4s",
-                        opacity: hide ? 0 : 1,
-                      }}
-                      key={idx}
-                      onClick={() =>
-                        setSelectedImg((prev) => {
-                          const isThesame =
-                            prev.idx == idx && index == prev.index;
-                          if (isThesame) return {};
-                          return { idx, index };
-                        })
-                      }
-                    />
-                  );
-                })}
-              </Row>
-            </div>
-          ))} */}
-          <div style={{ height: 32 }} />
-        </div>
-      </div>
+          );
+        })}
+      </BalloonContainer>
     </Balloon>
   );
 };

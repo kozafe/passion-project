@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-// import { colors } from "./colors";
 import React from "react";
-import { IoMdArrowBack } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 import { colors } from "../../colors";
+import { useDimensions } from "../../tools";
 
 export const Balloon = ({
   isOpen,
@@ -81,11 +81,17 @@ export const Balloon = ({
     ? leftPosition
     : defaultLeft;
 
+  const { isTabOrPhone } = useDimensions();
+
   return (
     <div
       style={{
         width: isFullScreen ? "100vw" : balloonWidth,
-        height: isFullScreen ? "100vh" : balloonWidth,
+        height: isFullScreen
+          ? "100vh"
+          : isTabOrPhone && isSquare
+          ? 50
+          : balloonWidth,
         backgroundColor: color,
         position: "fixed",
         opacity: hide ? 0 : 1,
@@ -99,6 +105,7 @@ export const Balloon = ({
           ? "all ease .4s"
           : "all ease 2s",
         cursor: balloonState ? "" : "pointer",
+        boxShadow: `0px 8px 40px rgba(0,0,0,.3)`,
       }}
       className="d-flex justify-content-center align-items-center"
       onClick={() => {
@@ -107,14 +114,14 @@ export const Balloon = ({
       }}
     >
       {toggle && isFullScreen && (
-        <IoMdArrowBack
+        <IoIosArrowBack
           style={{
             position: "fixed",
-            top: "10vh",
-            left: "10vw",
+            top: isTabOrPhone ? "5vh" : "10vh",
+            left: isTabOrPhone ? "5vw" : "10vw",
             cursor: "pointer",
           }}
-          color="white"
+          color={colors.black}
           size={32}
           onClick={(e) => {
             e.preventDefault();
@@ -126,12 +133,14 @@ export const Balloon = ({
       <div
         style={{
           opacity: balloonState ? 0 : 1,
-          width: balloonState ? 0 : "auto",
+          // width: balloonState ? 0 : "auto",
           marginBottom: -8,
+          ...(balloonState ? { width: 0 } : {}),
+          transition: "opacity .4s linear",
         }}
         className="d-flex justify-content-center align-items-center"
       >
-        <h1 className="font14" style={{ color: colors.black }}>
+        <h1 className="font16" style={{ color: colors.black }}>
           {textTitle}
         </h1>
       </div>
@@ -141,6 +150,7 @@ export const Balloon = ({
           opacity: !isInflated ? 0 : 1,
           width: !isInflated ? 0 : "auto",
           transition: !isInflated ? "" : "all linear 2s",
+          textAlign: "center",
         }}
         className={balloonState ? "font32" : "font24"}
       >
@@ -157,6 +167,29 @@ export const Balloon = ({
         }}
       >
         {isFullScreen ? children : null}
+      </div>
+    </div>
+  );
+};
+
+export const BalloonContainer = ({ children }) => {
+  const { isTabOrPhone } = useDimensions();
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        bottom: 0,
+        left: "15vw",
+        width: "85vw",
+        height: "100vh",
+        overflow: "auto",
+      }}
+    >
+      <div style={{ width: "70vw" }}>
+        <div style={{ height: isTabOrPhone ? "10vh" : "20vh" }} />
+        {children}
+        <div style={{ height: 32 }} />
       </div>
     </div>
   );

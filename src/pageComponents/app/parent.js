@@ -5,6 +5,9 @@ import { Balloon } from "./balloon";
 import { ProjectBalloon } from "./project";
 import { ExperienceBalloon } from "./experience";
 import { TitleMessage } from "./template";
+import { AiFillLinkedin } from "react-icons/ai";
+import { BsWhatsapp } from "react-icons/bs";
+import { SiGmail } from "react-icons/si";
 
 export const MainApp = () => {
   const { isOpen, open } = useModalHook();
@@ -18,6 +21,20 @@ export const MainApp = () => {
   const { isOpen: isOpenProjects, toggle: toggleProjects } = useModalHook();
   const { isOpen: isOpenExperience, toggle: toggleExperience } = useModalHook();
 
+  const Hyperlink = ({ children, href, marginLeft = 0 }) => (
+    <a
+      style={{
+        color: colors.yellow,
+        cursor: "pointer",
+        textDecorationLine: "none",
+        marginLeft,
+      }}
+      href={href}
+    >
+      {children}
+    </a>
+  );
+
   return (
     <div
       style={{
@@ -29,7 +46,22 @@ export const MainApp = () => {
       <Balloon isOpen={isOpen} inflatedTitle="Welcome to my portfolio">
         <TitleMessage
           title="Hello!"
-          msg="My name is Koza Brajamagenta and I'm a Front End Developer"
+          msg={
+            <>
+              My name is Koza Brajamagenta and I'm a Front End Developer
+              <br />
+              <br />
+              <Hyperlink href="https://www.linkedin.com/in/koza-brajamagenta-16a012128/">
+                <AiFillLinkedin /> LinkedIn
+              </Hyperlink>
+              <Hyperlink marginLeft={24} href="https://wa.me/+628128848703">
+                <BsWhatsapp /> WhatsApp
+              </Hyperlink>
+              <Hyperlink marginLeft={24} href="mailto:k.brajamagenta@gmail.com">
+                <SiGmail /> Gmail
+              </Hyperlink>
+            </>
+          }
         />
         <ProjectBalloon
           hide={isOpenExperience}
