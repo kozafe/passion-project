@@ -11,7 +11,7 @@ export const ExperienceBalloon = ({ hide, isOpen, toggle }) => {
   const { isTabOrPhone } = useDimensions();
   const child = (
     <TitleMessage
-      title="Experiences and capability"
+      title="Experience and capability"
       titleColor={colors.greyea}
       msg={
         <>

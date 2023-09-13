@@ -160,7 +160,7 @@ export const Balloon = ({
           transition: !isInflated ? "" : "all linear 2s",
           textAlign: "center",
         }}
-        className={balloonState ? "font32" : "font24"}
+        className={isTabOrPhone ? "font32" : balloonState ? "font32" : "font24"}
       >
         {inflatedTitle}
       </h1>
