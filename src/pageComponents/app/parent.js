@@ -50,9 +50,9 @@ export const MainApp = () => {
         inflatedTitle={
           isTabOrPhone ? (
             <>
-              Welcome to
+              My
               <br />
-              my portfolio
+              Portfolio
             </>
           ) : (
             "Welcome to my portfolio"
