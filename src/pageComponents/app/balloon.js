@@ -36,9 +36,12 @@ export const Balloon = ({
     setTimeout(() => {
       setBalloonState(1);
     }, 200);
-    setTimeout(() => {
-      setBalloonState(2);
-    }, 3200);
+    setTimeout(
+      () => {
+        setBalloonState(2);
+      },
+      isSquare ? 2200 : 3200
+    );
   };
 
   const closes = () => {
@@ -94,6 +97,7 @@ export const Balloon = ({
   const transitionTimingDecider = () => {
     if (!isOpen) return "1s";
     if (isFullScreen) return ".4s";
+    if (isSquare) return "1s";
     return "2s";
   };
 
@@ -127,6 +131,7 @@ export const Balloon = ({
             left: isTabOrPhone ? "5vw" : "10vw",
             cursor: "pointer",
           }}
+          className="floating-back"
           color={colors.black}
           size={32}
           onClick={(e) => {
@@ -157,7 +162,9 @@ export const Balloon = ({
           color: isInflated ? inflatedColor : "transparent",
           opacity: !isInflated ? 0 : 1,
           width: !isInflated ? 0 : "auto",
-          transition: !isInflated ? "" : "all linear 2s",
+          transition: !isInflated
+            ? ""
+            : `all linear ${transitionTimingDecider()}`,
           textAlign: "center",
         }}
         className={isTabOrPhone ? "font32" : balloonState ? "font32" : "font24"}

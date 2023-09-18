@@ -4,11 +4,24 @@ import { Balloon, BalloonContainer } from "./balloon";
 import { TitleMessage } from "./template";
 import { useState } from "react";
 import { useDimensions } from "../../tools";
+import { AiFillCode } from "react-icons/ai";
 
 const BlueSpan = ({ children }) => (
   <span style={{ color: colors.orange, backgroundColor: colors.black }}>
     {children}
   </span>
+);
+
+const Line = () => (
+  <div
+    style={{
+      height: 1,
+      width: "100%",
+      backgroundColor: colors.black,
+      marginBottom: 32,
+      marginTop: 32,
+    }}
+  />
 );
 
 export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
@@ -54,7 +67,6 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
             "/images/screenshotkyb4.png",
           ],
         },
-        { title: "etc" },
       ],
     },
     {
@@ -84,6 +96,7 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
         },
       ],
     },
+    { title: "And many more!" },
   ];
 
   const [selectedImg, setSelectedImg] = useState({});
@@ -106,14 +119,26 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
             Projects
           </>
         ) : (
-          "My Projects"
+          <>
+            <AiFillCode />
+            <br />
+            My Projects
+          </>
         )
       }
       inflatedColor={colors.black}
     >
       <BalloonContainer>
         <TitleMessage
-          title={"My Completed Projects"}
+          title={
+            <>
+              <AiFillCode
+                style={{ height: 48, width: "auto", marginBottom: 12 }}
+              />
+              <br />
+              My Completed Projects
+            </>
+          }
           titleColor={colors.black}
           msgColor={colors.black}
           msg={
@@ -127,26 +152,20 @@ export const ProjectBalloon = ({ isOpen, hide, toggle }) => {
             </>
           }
         />
-        <div
-          style={{
-            height: 1,
-            width: "100%",
-            backgroundColor: colors.black,
-            marginTop: 32,
-          }}
-        />
         {imgs.map(({ title, array }, mainIndex) => {
           const isMobile = mainIndex == 1;
           return (
             <div
               className="d-flex justify-content-center align-items-center"
-              style={{ flexDirection: "column", marginTop: 32 }}
+              style={{ flexDirection: "column" }}
               key={mainIndex}
             >
+              <Line />
+
               <h1 className="font24" style={{ color: colors.black }}>
                 {title}
               </h1>
-              {array.map(({ title, msg, imgs = [] }, index) => (
+              {(array || []).map(({ title, msg, imgs = [] }, index) => (
                 <div
                   key={index}
                   className="d-flex justify-content-center align-items-center"

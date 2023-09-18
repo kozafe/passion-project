@@ -76,3 +76,21 @@
     line-height: 42px;
   }
 }
+
+.floating-back {
+  animation: floating-back 2s infinite linear;
+  transition: all linear 0.4s;
+  border-radius: 20px;
+}
+
+@keyframes floating-back {
+  0% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(-5px);
+  }
+}
